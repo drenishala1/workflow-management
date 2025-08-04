@@ -1,0 +1,74 @@
+# =====================
+# OS Specific (macOS)
+# =====================
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+
+# =====================
+# Rider (JetBrains)
+# =====================
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Rider caches
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/shelf/
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.xml
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/gradle.xml
+.idea/**/libraries
+.idea/**/caches/
+.idea/**/assetWizardSettings.xml
+.idea/**/codeStyles/
+.idea/**/dictionaries/
+.idea/**/inspectionProfiles/
+.idea/**/shelf/
+
+# =====================
+# .NET Core / C#
+# =====================
+bin/
+obj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]og/
+[Ll]ogs/
+TestResults/
+node_modules/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Visual Studio files (safe even if not using VS)
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/packages/
+packages/
+
+# Publish output
+wwwroot/
+out/
+publish/
