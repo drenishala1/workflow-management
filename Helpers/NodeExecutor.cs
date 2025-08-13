@@ -1,40 +1,26 @@
+using WorkflowManagement.Interfaces;
 using WorkflowManagement.Models;
 
 namespace WorkflowManagement.Helpers;
 
-public static class NodeExecutor
+public class NodeExecutor
 {
-    public static void ExecuteNode(WorkflowNode node, Trigger trigger, string username)
+    private readonly Dictionary<NodeType, INodeHandler> _handlers;
+
+    public NodeExecutor(IEnumerable<INodeHandler> handlers)
     {
-        switch (node.Type)
+        _handlers = handlers.ToDictionary(h => h.NodeType, h => h);
+    }
+
+    public void ExecuteNode(WorkflowNode node, Trigger trigger, string username)
+    {
+        if (_handlers.TryGetValue(node.Type, out var handler))
         {
-            case NodeType.INIT:
-                node.Status = NodeStatus.Completed;
-                break;
-
-            case NodeType.CONDITION:
-                if (username != "John")
-                {
-                    node.Status = NodeStatus.Rejected;
-                    throw new Exception("Condition failed: User is not John");
-                }
-
-                node.Status = NodeStatus.Completed;
-                break;
-
-            case NodeType.MODIFY:
-                trigger.Message += " Hello";
-                node.Status = NodeStatus.Completed;
-                break;
-
-            case NodeType.STORE:
-                node.Message =
-                    $"{{ userId: '{trigger.UserId}', type: '{trigger.Type}', message: '{trigger.Message}' }}";
-                node.Status = NodeStatus.Completed;
-                break;
-
-            default:
-                throw new Exception($"Unsupported node type: {node.Type}");
+            handler.Execute(node, trigger, username);
+        }
+        else
+        {
+            throw new Exception($"No handler registered for node type: {node.Type}");
         }
     }
 }

@@ -2,6 +2,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
+using WorkflowManagement.Helpers;
+using WorkflowManagement.Interfaces;
 using WorkflowManagement.Repositories;
 using WorkflowManagement.Services;
 
@@ -15,6 +17,11 @@ builder.Services.AddControllers()
 builder.Services.AddSingleton<AuthService>();
 builder.Services.AddSingleton<WorkflowService>();
 builder.Services.AddSingleton<WorkflowRepository>();
+builder.Services.AddSingleton<INodeHandler, InitNodeHandler>();
+builder.Services.AddSingleton<INodeHandler, ConditionNodeHandler>();
+builder.Services.AddSingleton<INodeHandler, ModifyNodeHandler>();
+builder.Services.AddSingleton<INodeHandler, StoreNodeHandler>();
+builder.Services.AddSingleton<NodeExecutor>();
 
 var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"]);
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

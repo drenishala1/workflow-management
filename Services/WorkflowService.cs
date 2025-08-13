@@ -6,7 +6,7 @@ using WorkflowManagement.Repositories;
 
 namespace WorkflowManagement.Services;
 
-public class WorkflowService(WorkflowRepository repository)
+public class WorkflowService(WorkflowRepository repository, NodeExecutor executor)
 {
     public Workflow CreateWorkflow(Workflow workflow)
     {
@@ -30,7 +30,7 @@ public class WorkflowService(WorkflowRepository repository)
         foreach (var node in workflow.Nodes.Where(n => n.Status != NodeStatus.Completed))
         {
             node.Status = NodeStatus.InProgress;
-            NodeExecutor.ExecuteNode(node, trigger, username);
+            executor.ExecuteNode(node, trigger, username);
         }
 
         return workflow;
